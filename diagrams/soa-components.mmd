@@ -1,0 +1,36 @@
+graph TD
+    A[Interface do Usuário - Front-end] -->|HTTPS/REST| B[API Gateway]
+    C[Interface de Administração - Front-end] -->|HTTPS/REST| B
+    
+    B -->|Orquestração| D[Enterprise Service Bus - ESB]
+    
+    D -->|REST/SOAP| E[Serviço de Pesquisa de Voos]
+    D -->|REST/SOAP| F[Serviço de Reservas]
+    D -->|REST/SOAP| G[Serviço de Pagamento]
+    D -->|REST/SOAP| H[Serviço de Notificações]
+    D -->|REST/SOAP| I[Serviço de Gerenciamento de Usuários]
+    D -->|REST/SOAP| J[Serviço de Gerenciamento de Voos]
+    
+    E -->|API Externa| K[API de Voos Externos - Amadeus/Sabre]
+    G -->|API Externa| L[API de Pagamento - Stripe/PayPal]
+    H -->|API Externa| M[API de E-mail - SendGrid]
+    
+    E --> N[Banco de Dados - Voos]
+    F --> O[Banco de Dados - Reservas]
+    I --> P[Banco de Dados - Usuários]
+    J --> N
+    
+    subgraph Componentes Internos
+        E
+        F
+        G
+        H
+        I
+        J
+    end
+    
+    subgraph Serviços Externos
+        K
+        L
+        M
+    end
